@@ -139,8 +139,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Song Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qR4-zu-Y7A">
-                                <rect key="frame" x="139" y="85" width="96" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Song Title" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qR4-zu-Y7A">
+                                <rect key="frame" x="16" y="85" width="343" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -149,8 +149,8 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="agk-98-Zry" firstAttribute="top" secondItem="qR4-zu-Y7A" secondAttribute="bottom" constant="561" id="Cgn-99-ka5"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="qR4-zu-Y7A" secondAttribute="trailing" constant="124" id="THp-XW-R0l"/>
-                            <constraint firstItem="qR4-zu-Y7A" firstAttribute="leading" secondItem="GVb-li-Ngc" secondAttribute="leadingMargin" constant="123" id="rrw-1b-FGZ"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="qR4-zu-Y7A" secondAttribute="trailing" id="THp-XW-R0l"/>
+                            <constraint firstItem="qR4-zu-Y7A" firstAttribute="leading" secondItem="GVb-li-Ngc" secondAttribute="leadingMargin" id="rrw-1b-FGZ"/>
                             <constraint firstItem="qR4-zu-Y7A" firstAttribute="top" secondItem="FxM-lK-wvh" secondAttribute="bottom" constant="65" id="xa9-kQ-tKR"/>
                         </constraints>
                     </view>

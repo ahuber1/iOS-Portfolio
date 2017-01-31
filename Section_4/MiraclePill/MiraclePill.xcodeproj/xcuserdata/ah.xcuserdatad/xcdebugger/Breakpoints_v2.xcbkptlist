@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "MiraclePill/ViewController.swift"
-            timestampString = "505632858.068581"
+            timestampString = "507582919.183679"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "209"
-            endingLineNumber = "209"
+            startingLineNumber = "214"
+            endingLineNumber = "214"
             landmarkName = "containsLetters(_:)"
             landmarkType = "7">
          </BreakpointContent>

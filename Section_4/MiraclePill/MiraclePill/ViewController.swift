@@ -65,14 +65,19 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
         var rect = self.view.frame
         rect.size.height -= kbSize.height
         
-        if !rect.contains(activeField!.frame.origin) {
-            scrollView.scrollRectToVisible(activeField!.frame, animated: true)
+        if let activeField = activeField {
+            if !rect.contains(activeField.frame.origin) {
+                scrollView.scrollRectToVisible(activeField.frame, animated: true)
+            }
         }
     }
     
     func keyboardWillBeHidden(_ notification: NSNotification) {
-        scrollView.contentInset = originalContentInsets!
-        scrollView.scrollIndicatorInsets = originalContentInsets!
+        if let contentInsets = originalContentInsets {
+            scrollView.contentInset = contentInsets
+            scrollView.scrollIndicatorInsets = contentInsets
+        }
+        
         originalContentInsets = nil
         activeField = nil
     }
