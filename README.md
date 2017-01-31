@@ -3,7 +3,7 @@
 Completed 65 of 265 items, currently on Section 5 of 20.
 
 # iOS-Portfolio
-On January 1, 2016, I began an [iOS 10 and Swift 3 course](https://www.udemy.com/devslopes-ios10/). This is a collection of all code I completed as a part of this course. This course has 20 sections and one optional section. At the top of this README is the last date the repository was modified, and the current section I am working on is written as well. Below is a table describing:
+On January 1, 2016, I began an [iOS 10 and Swift 3 course](https://www.udemy.com/devslopes-ios10/). This is a collection of all code I completed as a part of this course. This course has 20s sections and one optional section. At the top of this README is the last date the repository was modified, and the current section I am working on is written as well. Below is a table describing:
 
 1. All the sections.
 2. Whether or not the section is incomplete, in-progress, or complete (i.e., I have yet to follow, am following, or followed along with all the videos in that section, and have yet to write, am writing, or wrote a fully-functioning app).
@@ -11,7 +11,7 @@ On January 1, 2016, I began an [iOS 10 and Swift 3 course](https://www.udemy.com
 
 | Section | Description                                              | Status      | Documented? |
 | ------: | -------------------------------------------------------- | ----------- | ----------- |
-| 1       | Getting Started with iOS 10 & Swift                      | Complete    | No          |
+| 1       | Getting Started with iOS 10 & Swift                      | Complete    | Yes         |
 | 2       | Learn to Code with Swift 3                               | Complete    | No          |
 | 3       | Version Control with Git & GitHub                        | Complete    | No          |
 | 4       | Foundational iOS                                         | Complete    | No          |

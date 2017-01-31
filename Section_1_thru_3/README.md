@@ -10,7 +10,7 @@ Section 1 was primarily an introduction to the course, which means that there wa
 ## Section 2
 **Learn to Code with Swift 3**
 
-Section 2 was introducing the students to Swift. I have had a little experience in the past with Swift, and I did a personal project in order to utilize the vast majority of the fundamental features in Swift; that personal project is found in the `SwiftMazeSearch` directory. The `Numbers`, `StringOutStrungOut`, and `Variables` directories contain code that I did along with the course in this section.
+Section 2 was introducing the students to Swift. I have had a little experience in the past with Swift, and I did a personal project in order to utilize the vast majority of the fundamental features in Swift; that personal project is found in the `SwiftMazeSearch` directory. The `Numbers`, `StringOutStrungOut`, and `Variables` directories contain code that I did along with the course in this section, but because the code in these directories were from simple exercises and the code is self-explanatory, no additional documentation exists.
 
 ## Section 3
 **Version Control with Git & GitHub**
