@@ -52,6 +52,25 @@ class ItemDetailsVC: UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
     
         getStores()
         
+        if stores.count != 6 {
+            let store1 = Store(context: context)
+            let store2 = Store(context: context)
+            let store3 = Store(context: context)
+            let store4 = Store(context: context)
+            let store5 = Store(context: context)
+            let store6 = Store(context: context)
+    
+            store1.name = "Best Buy"
+            store2.name = "Tesla Dealership"
+            store3.name = "Frys Electronics"
+            store4.name = "Target"
+            store5.name = "Amazon"
+            store6.name = "K Mart"
+            
+            ad.saveContext()
+            getStores()
+        }
+        
         if itemToEdit != nil {
             loadItemData()
         }
