@@ -9,7 +9,7 @@
 import UIKit
 import CoreData
 
-class ItemDetailsVC: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class ItemDetailsVC: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate {
     
     @IBOutlet weak var storePicker: UIPickerView!
     @IBOutlet weak var titleField: CustomTextField!
@@ -20,6 +20,24 @@ class ItemDetailsVC: UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
     var stores = [Store]()
     var itemToEdit: Item?
     var imagePicker: UIImagePickerController!
+    
+    private let previousButton = UIBarButtonItem(title: "Previous", style: .plain, target: self, action: #selector(previousButtonPressedOnKeyboardToolbar))
+    private let nextButton = UIBarButtonItem(title: "Next", style: .plain, target: self, action: #selector(nextButtonPressedOnKeyboardToolbar))
+    
+    var activeTextField: CustomTextField? {
+        if titleField.isFirstResponder {
+            return titleField
+        }
+        else if priceField.isFirstResponder {
+            return priceField
+        }
+        else if detailsField.isFirstResponder {
+            return detailsField
+        }
+        else {
+            return nil
+        }
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,21 +52,25 @@ class ItemDetailsVC: UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
         imagePicker = UIImagePickerController()
         imagePicker.delegate = self
         
-//        let store1 = Store(context: context)
-//        let store2 = Store(context: context)
-//        let store3 = Store(context: context)
-//        let store4 = Store(context: context)
-//        let store5 = Store(context: context)
-//        let store6 = Store(context: context)
-//        
-//        store1.name = "Best Buy"
-//        store2.name = "Tesla Dealership"
-//        store3.name = "Frys Electronics"
-//        store4.name = "Target"
-//        store5.name = "Amazon"
-//        store6.name = "K Mart"
-//        
-//        ad.saveContext()
+        titleField.delegate = self
+        priceField.delegate = self
+        detailsField.delegate = self
+        
+        let kbToolbar = UIToolbar()
+        kbToolbar.barStyle = .default
+        kbToolbar.sizeToFit()
+        
+        let emptySpace = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: self, action: nil)
+        let flexButton = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: self, action: nil)
+        let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(resignKeyboard))
+        let itemsArray = [previousButton, emptySpace, nextButton, flexButton, doneButton]
+        
+        emptySpace.width = 10.0
+        kbToolbar.setItems(itemsArray, animated: true)
+        
+        titleField.inputAccessoryView = kbToolbar
+        priceField.inputAccessoryView = kbToolbar
+        detailsField.inputAccessoryView = kbToolbar
     
         getStores()
         
@@ -75,10 +97,77 @@ class ItemDetailsVC: UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
             loadItemData()
         }
     }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        switch textField {
+        case titleField:
+            previousButton.isEnabled = false
+            nextButton.isEnabled = true
+        case priceField:
+            previousButton.isEnabled = true
+            nextButton.isEnabled = true
+        case detailsField:
+            previousButton.isEnabled = true
+            nextButton.isEnabled = false
+        default:
+            fatalError("An unknown text field began editing")
+        }
+        
+        if textField.text != nil {
+            textField.selectedTextRange = textField.textRange(from: textField.beginningOfDocument, to: textField.endOfDocument)
+        }
+    }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool // called when 'return' key pressed. return false to ignore.
+    {
+        switch textField {
+        case titleField:
+            priceField.becomeFirstResponder()
+        case priceField:
+            detailsField.becomeFirstResponder()
+        case detailsField:
+            detailsField.resignFirstResponder()
+        default:
+            fatalError("An invalid UITextField was passed in.")
+        }
+        
+        return true;
+    }
+    
+    func resignKeyboard() {
+        if let activeTextField = activeTextField {
+            activeTextField.resignFirstResponder()
+        }
+    }
+    
+    func previousButtonPressedOnKeyboardToolbar() {
+        if let activeTextField = activeTextField {
+            switch activeTextField {
+            case titleField:
+                fatalError("Cannot go to previous text field")
+            case priceField:
+                titleField.becomeFirstResponder()
+            case detailsField:
+                priceField.becomeFirstResponder()
+            default:
+                fatalError("The active text field is unknown")
+            }
+        }
+    }
+    
+    func nextButtonPressedOnKeyboardToolbar() {
+        if let activeTextField = activeTextField {
+            switch activeTextField {
+            case titleField:
+                priceField.becomeFirstResponder()
+            case priceField:
+                detailsField.becomeFirstResponder()
+            case detailsField:
+                fatalError("Cannot go the next text field")
+            default:
+                fatalError("The active text field is unknown")
+            }
+        }
     }
     
     @IBAction func savePressed(_ sender: UIButton) {
