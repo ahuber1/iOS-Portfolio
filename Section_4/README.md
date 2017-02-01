@@ -97,23 +97,42 @@ In this directory is the source code for an application that introduced us to ta
 
 After selecting a music video, a segue takes the user to a screen displaying an embedded video. Pressing the "BACK" button will take the user back to the previous screen.
 
-One of the things that was not mentioned in the course's videos was how to make the frame of the embedded video fit on the iPhone's screen. After some research, I was able to perform this. For more information on how this was performed, see [`videoEmbed.html`](https://github.com/ahuber1/iOS-Portfolio/blob/master/Section_4/PartyRock/PartyRock/videoEmbed.html), [`VideoInformation.swift`](https://github.com/ahuber1/iOS-Portfolio/blob/master/Section_4/PartyRock/PartyRock/VideoInformation.swift)`videoURL`'s computed property, and [`VideoVC.swift`](https://github.com/ahuber1/iOS-Portfolio/blob/master/Section_4/PartyRock/PartyRock/VideoVC.swift)'s `viewDidLoad()` function.
+One of the things that was not mentioned in the course's videos was how to make the frame of the embedded video fit on the iPhone's screen. After some research, I was able to perform this. For more information on how this was performed, see [`videoEmbed.html`](https://github.com/ahuber1/iOS-Portfolio/blob/master/Section_4/PartyRock/PartyRock/videoEmbed.html),the `videoURL` computed property in  [`VideoInformation.swift`](https://github.com/ahuber1/iOS-Portfolio/blob/master/Section_4/PartyRock/PartyRock/VideoInformation.swift), and the `viewDidLoad()` function in  [`VideoVC.swift`](https://github.com/ahuber1/iOS-Portfolio/blob/master/Section_4/PartyRock/PartyRock/VideoVC.swift).
 
 ![PartyRock_Video_Screen.PNG](https://github.com/ahuber1/iOS-Portfolio/blob/master/Section_4/screenshots/PartyRock/PartyRock_Video_Screen.PNG?raw=true "Party Rock app's video screen")
 
 ## `AutoLayout`
 
-This was the last application developed in Section 4 of the course. This was a simple exercise to get us used to various size classes in Interface Builder. As shown here in Xcode's Interface Builder, there is a blue rectangle on the top, a yellow square on the bottom left, and a red square on the bottom right.
+This was the last application developed in Section 4 of the course. This was a simple exercise to get us used to various size classes in Interface Builder. As shown in the screenshots below, screenshots of Xcode's Interface Builder, there is a blue rectangle, a yellow square, and a red square. The position and whether or not the shapes appear depends on the devices (i.e., size classes) in question.
+
+| Device | Orientation | Shape          | Is shown? | Position     |
+| ------ | ----------- | -------------- | --------- | -------------|
+| iPhone | Portrait    | Blue Rectangle | Yes       | Top          |
+| iPhone | Portrait    | Red Square     | Yes       | Bottom Right |
+| iPhone | Portrait    | Yellow Square  | Yes       | Bottom Left  |
+| iPhone | Landscape   | Blue Rectangle | Yes       | Top          |
+| iPhone | Landscape   | Red Square     | Yes       | Bottom Left  |
+| iPhone | Landscape   | Yellow Square  | Yes       | Bottom Right |
+| iPad   | Portrait    | Blue Rectangle | No        | N/A          |
+| iPad   | Portrait    | Red Square     | Yes       | Bottom Right |
+| iPad   | Portrait    | Yellow Square  | Yes       | Bottom Left  |
+| iPad   | Landscape   | Blue Rectangle | No        | N/A          |
+| iPad   | Landscape   | Red Square     | Yes       | Bottom Right |
+| iPad   | Landscape   | Yellow Square  | Yes       | Bottom Left  |
+
+Let us break this down. In the screenshot below of an iPhone in portrait, there is a blue rectangle on the top, a red square on the bottom right, and a yellow square on the bottom left.
 
 ![AutoLayout_iPhone_Portrait.png](https://github.com/ahuber1/iOS-Portfolio/blob/master/Section_4/screenshots/AutoLayout/AutoLayout_iPhone_Portrait.png?raw=true "iPhone Portrait")
 
 <center>_The app on an iPhone in portrait in Interface Builder._</center><newline/>
 
+However, when an iPhone is in landscape mode, the positions of the yellow and red squares are swapped.
+
 ![AutoLayout_iPhone_Landscape.png](https://github.com/ahuber1/iOS-Portfolio/blob/master/Section_4/screenshots/AutoLayout/AutoLayout_iPhone_Landscape.png?raw=true "iPhone Landscape")
 
 <center>_The app on an iPhone in landscape in Interface Builder._</center><newline/>
 
-**However**, this is only true for iPhones. For iPads, the blue rectangle is not shown, and the position of the squares are swapped.
+For iPads _in portrait and in landscape_, the blue rectangle is not shown, the yellow square is on the bottom left, and the red square is on the bottom right.
 
 ![AutoLayout_iPhone_Portrait.png](https://github.com/ahuber1/iOS-Portfolio/blob/master/Section_4/screenshots/AutoLayout/AutoLayout_iPad_Portrait.png?raw=true "iPad Portrait")
 
