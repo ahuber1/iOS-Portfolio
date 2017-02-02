@@ -9,48 +9,99 @@
 import UIKit
 
 class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate, UITextFieldDelegate {
+    
+    /** The Miracle Pill icon in the top of the app. */
     @IBOutlet weak var miraclePillEmoji: UIImageView!
+    
+    /** The label that states "MIRACLE PILL" */
     @IBOutlet weak var miraclePillsLabel: UILabel!
+    
+    /** The label that displays the price of one Miracle Pill */
     @IBOutlet weak var priceLabel: UILabel!
+    
+    /** The `UIPickerView` that allows the user to select a state */
     @IBOutlet weak var statePicker: UIPickerView!
+    
+    /** The `UIButton` the user presses when he/she would like to display the `UIPickerView` */
     @IBOutlet weak var statePickerButton: UIButton!
+    
+    /** 
+        The scroll view in which this entire _form_ (not the entire _view_) is embedded in 
+        (i.e., all the content below `priceLabel` is inside this scroll view
+     */
     @IBOutlet weak var scrollView: UIScrollView!
+    
+    /** The text field where the user enters his/her full name */
     @IBOutlet weak var fullNameTextField: UITextField!
+    
+    /** The text field where the user enters his/her street address */
     @IBOutlet weak var streetAddressTextField: UITextField!
+    
+    /** The text field where the user enters his/her city */
     @IBOutlet weak var cityTextField: UITextField!
+    
+    /** The text field where the user enters his/her zip code */
     @IBOutlet weak var zipCodeTextField: UITextField!
+    
+    /** The text field where the user enters the number of Miracle Pills to buy */
     @IBOutlet weak var quantityTextField: UITextField!
+    
+    /** The success indicator that displays at the end */
     @IBOutlet weak var successIndicator: UIImageView!
+    
+    /** The grey divider between the top and bottom of the screen */
     @IBOutlet weak var divider: UIView!
     
+    /** The name of the `.txt` file containing the states to display in `statePicker` */
     static let statesFileName = "states"
     
-    var defaultButtonText: String? = nil
+    /** An array containing the abbreviation of a state, followed by its full name (e.g., "MD (Maryland)")  */
     let states = ViewController.constructStatesList()
-    var editingStates = false
-    var selectedRow: Int? = nil
-    var offsetY: CGFloat? = nil
-    var activeField: UITextField? = nil
-    var originalContentInsets: UIEdgeInsets? = nil
     
-    override var supportedInterfaceOrientations: UIInterfaceOrientationMask { return UIInterfaceOrientationMask.portrait }
-    override var preferredInterfaceOrientationForPresentation: UIInterfaceOrientation { return UIInterfaceOrientation.portrait }
-    override var shouldAutorotate: Bool { return UIApplication.shared.statusBarOrientation == UIInterfaceOrientation.portrait }
+    /** `true` if the user is selecting a state in the `UIPickerView`, `false` if it is not. */
+    var editingStates = false
+    
+    /** The row in the `UIPickerView` that was selected */
+    var selectedRow: Int? = nil
+    
+    /** The `UITextField` that is currently active. */
+    var activeField: UITextField? = nil
+    
+    /**
+        In order to push the content in the scroll view up so the keyboard can appear and not cover up any text fields,
+        the content insets of the `UIScrollView` are adjusted. However, the content insets before this adjustment are stored
+        in this variable. 
+     
+        When the content insets need to be reverted, i.e., when the scroll view needs to be pushed back down, the application 
+        needs to revert its content insets, and that is performed thanks to the fact that this variable stores the original
+        content insets. After the original content insets are used in order to perform this reversal, this is set back to `nil`.
+     */
+    var originalContentInsets: UIEdgeInsets? = nil
 
     override func viewDidLoad() {
         super.viewDidLoad()
         statePicker.dataSource = self
         statePicker.delegate = self
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: .UIKeyboardWillShow, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillBeHidden), name: .UIKeyboardWillHide, object: nil)
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+        
+        // Adds two observers that run when the keyboard will show and when the keyboard will be hidden.
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(keyboardWillShow),
+                                               name: .UIKeyboardWillShow,
+                                               object: nil)
+        
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(keyboardWillBeHidden),
+                                               name: .UIKeyboardWillHide,
+                                               object: nil)
     }
     
-    func keyboardWillShow(_ notification: NSNotification) {
+    /**
+        This function executes when the keyboard _will_ show.
+     
+        - parameters:
+            - notification: The `NSNotification` that triggered this function's execution
+     */
+    @objc private func keyboardWillShow(_ notification: NSNotification) { // @objc allows this to work with selector b/c it's a private function
         let info = notification.userInfo!
         let kbSize = (info[UIKeyboardFrameBeginUserInfoKey]! as! CGRect).size
         let contentInsets = UIEdgeInsets(top: 0.0, left: 0.0, bottom: kbSize.height, right: 0.0)
@@ -72,7 +123,13 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
         }
     }
     
-    func keyboardWillBeHidden(_ notification: NSNotification) {
+    /**
+     This function executes when the keyboard _will_ show.
+     
+     - parameters:
+     - notification: The `NSNotification` that triggered this function's execution
+     */
+    @objc private func keyboardWillBeHidden(_ notification: NSNotification) { // @objc allows this to work with selector b/c it's a private function
         if let contentInsets = originalContentInsets {
             scrollView.contentInset = contentInsets
             scrollView.scrollIndicatorInsets = contentInsets
@@ -82,24 +139,33 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
         activeField = nil
     }
     
+    /**
+     Called when editing begins in the text fields.
+     
+     - parameters:
+        - sender: the `UITextField` that was selected
+     */
     @IBAction func editingDidBegin(_ sender: UITextField) {
         activeField = sender
         activeField!.delegate = self
     }
     
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool // called when 'return' key pressed. return NO to ignore.
+    // Implementation for optional function in UIKit
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool // called when 'return' key pressed. return false to ignore.
     {
         textField.resignFirstResponder()
         return true;
     }
     
+    /**
+     Called when the user presees the button to select a state.
+     
+     - parameters:
+        - sender: the `UITextField` that was selected.
+     */
     @IBAction func stateButtonPressed(_ sender: UIButton) {
         view.endEditing(true)
         editingStates = !editingStates // toggle between modes
-        
-        if defaultButtonText == nil {
-            defaultButtonText = statePickerButton.titleLabel!.text!
-        }
         
         if editingStates {
             statePicker.isHidden = false
@@ -108,12 +174,13 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
         else {
             statePicker.isHidden = true
             
-            if let row = selectedRow {
-                statePickerButton.setTitle(ViewController.tupleToString(states[row]), for: UIControlState.normal)
+            // This happens when the user does not touch the UIPickerView. When this happens,
+            // the app assumes that the user wants to pick the first state.
+            if selectedRow == nil {
+                selectedRow = 0
             }
-            else {
-                statePickerButton.setTitle(defaultButtonText!, for: UIControlState.normal)
-            }
+            
+            statePickerButton.setTitle(ViewController.tupleToString(states[selectedRow!]), for: UIControlState.normal)
         }
     }
     
@@ -132,22 +199,55 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
         return ViewController.tupleToString(states[row])
     }
     
-    // Performs some action when someone selects a row
+    // Performs some action when someone selects a row in the UIPickerView
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         selectedRow = row
     }
     
+    /**
+        Called whenever the user presses the "Buy Now" button
+     
+        - parameters:
+            - sender: the `UIButton` that was pressed
+     */
     @IBAction func buyNowButtonPressed(_ sender: UIButton) {
         view.endEditing(true)
-        var results = [MiraclePillCheck]()
+        var results = [MiraclePillCheckResult]() // will contain the results of the error checks
         
-        results.append(checkEntry(entryDescription: "Full Name", entry: fullNameTextField.text, isButton: false, isNumeric: false))
-        results.append(checkEntry(entryDescription: "Street Address", entry: streetAddressTextField.text, isButton: false, isNumeric: false))
-        results.append(checkEntry(entryDescription: "City", entry: cityTextField.text, isButton: false, isNumeric: false))
-        results.append(checkEntry(entryDescription: "State", entry: statePickerButton.titleLabel!.text, isButton: true, isNumeric: false))
-        results.append(checkEntry(entryDescription: "Zip Code", entry: zipCodeTextField.text, isButton: false, isNumeric: true))
-        results.append(checkEntry(entryDescription: "Quantity", entry: quantityTextField.text, isButton: false, isNumeric: true))
+        // Error check each of the fields
+        results.append(checkEntry(fieldDescription: "Full Name",
+                                  entry: fullNameTextField.text,
+                                  isButton: false,
+                                  isInteger: false))
         
+        results.append(checkEntry(fieldDescription: "Street Address",
+                                  entry: streetAddressTextField.text,
+                                  isButton: false,
+                                  isInteger: false))
+        
+        results.append(checkEntry(fieldDescription: "City",
+                                  entry: cityTextField.text,
+                                  isButton: false,
+                                  isInteger: false))
+        
+        results.append(checkEntry(fieldDescription: "State",
+                                  entry: statePickerButton.titleLabel!.text,
+                                  isButton: true,
+                                  isInteger: false))
+        
+        results.append(checkEntry(fieldDescription: "Zip Code",
+                                  entry: zipCodeTextField.text,
+                                  isButton: false,
+                                  isInteger: true))
+        
+        results.append(checkEntry(fieldDescription: "Quantity",
+                                  entry: quantityTextField.text,
+                                  isButton: false,
+                                  isInteger: true))
+        
+        // Checks each result in the error checking, and reports the first error discovered
+        // to the user if there is an error in the form of a pop-up, and immediately returns 
+        // from this function
         for result in results {
             let description: String?
             
@@ -170,6 +270,8 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
             }
         }
         
+        // If control of the program got here, then all error checks passed. 
+        // Hide all the views, and show the success indicator.
         miraclePillEmoji.isHidden = true
         miraclePillsLabel.isHidden = true
         priceLabel.isHidden = true
@@ -178,7 +280,18 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
         successIndicator.isHidden = false
     }
     
-    func checkEntry(entryDescription: String, entry: String?, isButton: Bool, isNumeric: Bool) -> MiraclePillCheck {
+    /**
+        Performs error checking on one of the user's entries.
+     
+        - parameters:
+            - fieldDescription: a human-readable description of the field currently being analyzed (e.g., "Street Address").
+            - entry: the actual entry made by the user (i.e., what the user entered in this field).
+            - isButton: `true` if this is a button, `false` if it is not.
+            - isInteger: `true` if the entry should be an integer, `false` if should not.
+     
+        - returns: a `MiraclePillCheck` value containing the result of this check.
+     */
+    func checkEntry(fieldDescription: String, entry: String?, isButton: Bool, isInteger: Bool) -> MiraclePillCheckResult {
         if isButton {
             if entry == "Tap to select state" {
                 return .stateNotSelected
@@ -189,10 +302,10 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
         }
         else {
             if entry == nil || entry!.characters.count == 0 {
-                return .emptyTextField(entryDescription: entryDescription)
+                return .emptyTextField(entryDescription: fieldDescription)
             }
-            else if isNumeric && containsLetters(entry!) {
-                return .invalidEntry(entryDescription: entryDescription)
+            else if isInteger && !stringIsInteger(entry!) {
+                return .invalidEntry(entryDescription: fieldDescription)
             }
             else {
                 return .correct
@@ -200,7 +313,15 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
         }
     }
     
-    func containsLetters(_ string: String) -> Bool {
+    /**
+        Checks a string to see if it is an integer or not.
+     
+        - parameters:
+            - string: the string to check
+     
+        - returns: `true` if the string contains an integer, `false` if it does not.
+     */
+    func stringIsInteger(_ string: String) -> Bool {
         for character in string.characters {
             var thereIsADigit = false
             
@@ -211,19 +332,26 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
             }
             
             if thereIsADigit == false {
-                return true
+                return false
             }
         }
         
-        return false
+        return true
     }
     
+    /**
+     Reads the text file containing abbreviations and full names of the states in the U.S., 
+     and returns an array of tuples that contain two items: the states' abbreviation (e.g., "CA")
+     and the states' full name (e.g., "California").
+     
+     - returns: an array of tuples that contain the states' abbreviation (e.g., "CA") and its full name
+       (e.g., "California")
+     */
     static func constructStatesList() -> [(abbreviation: String, fullName: String)] {
-        var list = [(abbreviation: String, fullName: String)]()
-        
         if let path = Bundle.main.path(forResource: statesFileName, ofType: "txt") {
             if let fileContents = try? String(contentsOfFile: path).trimmingCharacters(in: CharacterSet.whitespacesAndNewlines) {
-                let lines = fileContents.components(separatedBy: "\n")
+                let lines = fileContents.components(separatedBy: "\n") // each line of the text file
+                var list = [(abbreviation: String, fullName: String)]()
                 
                 for line in lines {
                     let trimmedLine = line.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
@@ -236,21 +364,49 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
                         }
                     }
                 }
+                
+                return list
             }
-            
         }
         
-        return list
+        fatalError("Unable to read \(statesFileName).txt")
     }
     
+    /**
+     Converts one of the tuples in the array that `constructStatesList()` created into
+     a human-readable string in the format "<abbeviation> (<full name>)" 
+     (e.g., "CA (California)"), and returns that string.
+     
+     - parameters:
+     - tuple: the tuple to convert
+     
+     - returns: the human-readable string
+     */
     static func tupleToString(_ tuple: (abbreviation: String, fullName: String)) -> String {
         return "\(tuple.abbreviation) (\(tuple.fullName))"
     }
 }
 
-enum MiraclePillCheck {
+/**
+    An enum used by `checkEntry(fieldDescription: String, entry: String?, isButton: Bool, isInteger: Bool)`
+    to check each field of the form that this app displays. This enum stores the result of the particular check.
+ */
+enum MiraclePillCheckResult {
+    /** The check passed; the user's entry is correct */
     case correct
+    
+    /** 
+        The text field is empty. `entryDescription` is a human-readable description of the field that was just 
+        checked (e.g., "Street Address").
+    */
     case emptyTextField(entryDescription: String)
+    
+    /**
+     The text in the text field is invalid. `entryDescription` is a human-readable description of the field that 
+     was just checked (e.g., "Street Address").
+     */
     case invalidEntry(entryDescription: String)
+    
+    /** The user did not select a state in the `UIPickerView` */
     case stateNotSelected
 }
