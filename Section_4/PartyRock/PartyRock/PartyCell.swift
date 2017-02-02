@@ -8,15 +8,27 @@
 
 import UIKit
 
+/**
+    The table view cell for the main screen of the Party Rock app.
+ 
+    - author: Andrew Huber
+ 
+ */
 class PartyCell: UITableViewCell {
 
+    /** An image view displaying the preview of the music video. */
     @IBOutlet weak var videoPreviewImage: UIImageView!
+    
+    /** A label displaying the title of the music video. */
     @IBOutlet weak var videoTitleLabel: UILabel!
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
-    }
-    
+    /**
+     Updates the contents of this `PartyCell` with the information stored
+     in a `VideoInformation` object.
+     
+     - parameters:
+        - info: the `VideoInformation` object
+     */
     func updateUI(withInfo info: VideoInformation) {
         videoTitleLabel.text = info.videoTitle
         
