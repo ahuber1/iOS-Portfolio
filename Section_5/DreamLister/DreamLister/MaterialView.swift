@@ -5,21 +5,35 @@
 //  Created by Andrew Huber on 1/24/17.
 //  Copyright © 2017 Andrew Huber. All rights reserved.
 //
+//  Description: This file contains code for an extension of UIView object.
+//               This extension allows one to make UIViews appear like Google's
+//               apps that use material design, i.e., it adds shadows to UIView
+//               objects such that they appear to be sheets of paper ("material").
 
 import UIKit
 
-private var materialKey = false
+/** The variable that `materialDesign` accesses and sets. */
+private var _materialDesign = false
 
 extension UIView {
 
+    /**
+     A property of `UIView` that allows `UIView`s to appear like Google's apps that
+     use material design, i.e., it adds shadows to this `UIView` so that they appear
+     to be sheets of paper ("material"). 
+     
+     This property is `IBInspectable`, so one can alter this in Interface Builder. Set
+     this to `true` in order to make this UIView appear as "material", `false` if you 
+     do not.
+     */
     @IBInspectable var materialDesign: Bool {
         get {
-            return materialKey
+            return _materialDesign
         }
         set {
-            materialKey = newValue
+            _materialDesign = newValue
             
-            if materialKey {
+            if _materialDesign {
                 self.layer.masksToBounds = false
                 self.layer.cornerRadius = 3.0
                 self.layer.shadowOpacity = 0.8

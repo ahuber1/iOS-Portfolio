@@ -9,53 +9,71 @@
 import UIKit
 import CoreData
 
+/**
+    This class contains the code for the view controller in the DreamLister app that displays an item
+    that the user would like to buy in a table view so that the user can edit it. This is also the the view
+    controller that allows the user to edit and delete an item.
+ */
 class ItemDetailsVC: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate {
     
+    /** The picker view that is used to select a store */
     @IBOutlet weak var storePicker: UIPickerView!
+    
+    /** Shows the name of the item */
     @IBOutlet weak var titleField: CustomTextField!
+    
+    /** Shows the price of the item */
     @IBOutlet weak var priceField: CustomTextField!
+    
+    /** Shows the description of the tiem */
     @IBOutlet weak var detailsField: CustomTextField!
+    
+    /** Shows the thumbnail of the item */
     @IBOutlet weak var thumbnailImage: UIImageView!
     
+    /** A list of all the stores */
     var stores = [Store]()
+    
+    /** The `Item` object that will be edited, or `nil` when a new `Item` object is being created in this VC */
     var itemToEdit: Item?
+    
+    /** Allows the user to pick an image for this item */
     var imagePicker: UIImagePickerController!
     
+    /** 
+        The `"Previous"` button used in the toolbar that shows above the keyboard. With this button, the user can
+        easily go to the previous text field. 
+     */
     private let previousButton = UIBarButtonItem(title: "Previous", style: .plain, target: self, action: #selector(previousButtonPressedOnKeyboardToolbar))
-    private let nextButton = UIBarButtonItem(title: "Next", style: .plain, target: self, action: #selector(nextButtonPressedOnKeyboardToolbar))
     
-    var activeTextField: CustomTextField? {
-        if titleField.isFirstResponder {
-            return titleField
-        }
-        else if priceField.isFirstResponder {
-            return priceField
-        }
-        else if detailsField.isFirstResponder {
-            return detailsField
-        }
-        else {
-            return nil
-        }
-    }
+    /**
+     The `"Next"` button used in the toolbar that shows above the keyboard. With this button, the user can
+     easily go to the next text field.
+     */
+    private let nextButton = UIBarButtonItem(title: "Next", style: .plain, target: self, action: #selector(nextButtonPressedOnKeyboardToolbar))
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        // Sets the text for the back button on the navigation controller
         if let topItem = self.navigationController?.navigationBar.topItem {
             topItem.backBarButtonItem = UIBarButtonItem(title: "", style: UIBarButtonItemStyle.plain, target: nil, action: nil)
         }
         
+        // Sets the store picker's delegate and data source
         storePicker.delegate = self
         storePicker.dataSource = self
         
+        // Creates the image picker, and sets its delegate
         imagePicker = UIImagePickerController()
         imagePicker.delegate = self
         
+        // Sets the text field's delegates
         titleField.delegate = self
         priceField.delegate = self
         detailsField.delegate = self
         
+        // Creates the toolbar that appears on top of the keyboard
         let kbToolbar = UIToolbar()
         kbToolbar.barStyle = .default
         kbToolbar.sizeToFit()
@@ -72,9 +90,11 @@ class ItemDetailsVC: UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
         priceField.inputAccessoryView = kbToolbar
         detailsField.inputAccessoryView = kbToolbar
     
+        // Get the stores from Core Data, and store them in the stores array
         getStores()
         
-        if stores.count != 6 {
+        // If the stores have yet to be added, add them to Core Data, and call getStores() again
+        if stores.count == 0 {
             let store1 = Store(context: context)
             let store2 = Store(context: context)
             let store3 = Store(context: context)
@@ -93,11 +113,15 @@ class ItemDetailsVC: UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
             getStores()
         }
         
+        // If there is an item to edit, load it into this VC
         if itemToEdit != nil {
             loadItemData()
         }
     }
     
+    // Enables and disables previousButton and nextButton depending on the text field that was selected so that one
+    // can hit the previous button when the user can go to a previous text field, and one can hit the next button 
+    // when the user can go to the next text field.
     func textFieldDidBeginEditing(_ textField: UITextField) {
         switch textField {
         case titleField:
@@ -118,7 +142,8 @@ class ItemDetailsVC: UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
         }
     }
 
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool // called when 'return' key pressed. return false to ignore.
+    // Called when the 'return' key is pressed on the keyboard.
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool
     {
         switch textField {
         case titleField:
@@ -134,14 +159,19 @@ class ItemDetailsVC: UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
         return true;
     }
     
-    func resignKeyboard() {
-        if let activeTextField = activeTextField {
+    /** Call this to dismiss the keyboard. */
+    @objc private func resignKeyboard() {
+        if let activeTextField = firstResponder {
             activeTextField.resignFirstResponder()
         }
     }
     
-    func previousButtonPressedOnKeyboardToolbar() {
-        if let activeTextField = activeTextField {
+    /** 
+        Called whenever the `"Previous"` button is pressed on the keyboard toolbar.
+        A fatal error will occur when it is not possible to select the "previous" text field. 
+     */
+    @objc private func previousButtonPressedOnKeyboardToolbar() {
+        if let activeTextField = firstResponder {
             switch activeTextField {
             case titleField:
                 fatalError("Cannot go to previous text field")
@@ -155,8 +185,12 @@ class ItemDetailsVC: UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
         }
     }
     
+    /**
+        Called whenever the `"Next"` button is pressed on the keyboard toolbar.
+        A fatal error will occur when it is not possible to select the "next" text field.
+     */
     func nextButtonPressedOnKeyboardToolbar() {
-        if let activeTextField = activeTextField {
+        if let activeTextField = firstResponder {
             switch activeTextField {
             case titleField:
                 priceField.becomeFirstResponder()
@@ -170,9 +204,12 @@ class ItemDetailsVC: UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
         }
     }
     
+    // Called whenever the user presses the "Save Item" button.
     @IBAction func savePressed(_ sender: UIButton) {
+        // Create a new Item object if one does not exist. Otherwise, use itemToEdit
         let item = itemToEdit == nil ? Item(context: context) : itemToEdit!
         
+        // Set the Item object's properties
         if let title = titleField.text {
             item.title = title
         }
@@ -191,13 +228,17 @@ class ItemDetailsVC: UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
         item.toStore = stores[storePicker.selectedRow(inComponent: 0)] // column 0
         item.toImage = picture
         
+        // Save Item object to Core Data
         ad.saveContext()
         
+        // Go back one screen
         _ = navigationController?.popViewController(animated: true)
     }
 
+    // Called whenever the red trash can is pressed
     @IBAction func deletePressed(_ sender: UIBarButtonItem) {
-        
+        // If there is an Item to delete in Core Data, display an Action Sheet asking for confirmation, and delete ONLY
+        // when the user confirms the deletion. Otherwise, do nothing.
         if itemToEdit != nil {
             
             let actionSheet = UIAlertController(title: nil, message: "Are you sure you would like to delete this item?", preferredStyle: .actionSheet)
@@ -215,15 +256,18 @@ class ItemDetailsVC: UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
             
             present(actionSheet, animated: true, completion: nil)
         }
+        // If there is no Item to delete in Core Data, just go back to the previous screen.
         else {
             _ = navigationController?.popViewController(animated: true)
         }
     }
     
+    // Called whenever the user presses the thumbnail image
     @IBAction func addImage(_ sender: UIButton) {
         present(imagePicker, animated: true, completion: nil)
     }
     
+    // Called when the user has finished selecting an image from his/her Camera Roll
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
             thumbnailImage.image = image
@@ -232,22 +276,20 @@ class ItemDetailsVC: UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
         imagePicker.dismiss(animated: true, completion: nil)
      }
     
+    // Returns the number of rows in the one and only component of the picker view
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         return stores.count
     }
     
+    // There will only be one column in the picker view, so return 1
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return 1 // number of columns
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        // update when selected
+        return 1
     }
     
     func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
         var pickerLabel = view as? UILabel
         
-        // If this fails, all we are doing is reusing a label, and changing the text
+        // If this test fails, reuse the label. If this test succeeds, create a new UILabel
         if pickerLabel == nil {
             pickerLabel = UILabel()
             
@@ -259,7 +301,10 @@ class ItemDetailsVC: UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
         return pickerLabel!
     }
     
-    func getStores() {
+    /**
+        Fetches the stores from Core Data, and stores them in the `stores` array.
+     */
+    private func getStores() {
         let fetchRequest: NSFetchRequest<Store> = Store.fetchRequest()
         
         do {
@@ -270,7 +315,13 @@ class ItemDetailsVC: UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
         }
     }
     
-    func loadItemData() {
+    /**
+        With `itemToEdit` set, call this function in order to set the text fields, the image views, and all
+        the other views in this VC with the information stored in `itemToEdit`
+     
+        - precondition: `itemToEdit` is set.
+     */
+    private func loadItemData() {
         if let item = itemToEdit {
             titleField.text = item.title
             priceField.text = item.priceString
@@ -291,6 +342,4 @@ class ItemDetailsVC: UIViewController, UIPickerViewDataSource, UIPickerViewDeleg
             }
         }
     }
-    
-    
 }

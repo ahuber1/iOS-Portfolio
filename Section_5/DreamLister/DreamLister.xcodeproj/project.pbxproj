@@ -8,10 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		E02ADE271E396CDC00EB34FC /* ItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E02ADE261E396CDC00EB34FC /* ItemCell.swift */; };
-		E02ADE2C1E3A35E400EB34FC /* MyNumberFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E02ADE2B1E3A35E400EB34FC /* MyNumberFormatter.swift */; };
+		E02ADE2C1E3A35E400EB34FC /* SuccinctNumberFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E02ADE2B1E3A35E400EB34FC /* SuccinctNumberFormatter.swift */; };
 		E02ADE2E1E3A371900EB34FC /* ItemDetailsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E02ADE2D1E3A371900EB34FC /* ItemDetailsVC.swift */; };
 		E02ADE301E3A3A4800EB34FC /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = E02ADE2F1E3A3A4800EB34FC /* CustomTextField.swift */; };
-		E05578DB1E3BA1350029F7EE /* MyDateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E05578DA1E3BA1350029F7EE /* MyDateFormatter.swift */; };
+		E05578DB1E3BA1350029F7EE /* SuccinctDateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E05578DA1E3BA1350029F7EE /* SuccinctDateFormatter.swift */; };
 		E08A308D1E38141800A71E3C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E08A308C1E38141800A71E3C /* AppDelegate.swift */; };
 		E08A308F1E38141800A71E3C /* MainVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E08A308E1E38141800A71E3C /* MainVC.swift */; };
 		E08A30921E38141800A71E3C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E08A30901E38141800A71E3C /* Main.storyboard */; };
@@ -27,14 +27,15 @@
 		E08A30D11E381D8E00A71E3C /* ItemType+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = E08A30C91E381D8E00A71E3C /* ItemType+CoreDataClass.swift */; };
 		E08A30D21E381D8E00A71E3C /* ItemType+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = E08A30CA1E381D8E00A71E3C /* ItemType+CoreDataProperties.swift */; };
 		E08A30D61E38308900A71E3C /* MaterialView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E08A30D51E38308900A71E3C /* MaterialView.swift */; };
+		E0DEBD481E4BBC2900B2E11A /* ViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0DEBD471E4BBC2900B2E11A /* ViewControllerExtension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		E02ADE261E396CDC00EB34FC /* ItemCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemCell.swift; sourceTree = "<group>"; };
-		E02ADE2B1E3A35E400EB34FC /* MyNumberFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyNumberFormatter.swift; sourceTree = "<group>"; };
+		E02ADE2B1E3A35E400EB34FC /* SuccinctNumberFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SuccinctNumberFormatter.swift; sourceTree = "<group>"; };
 		E02ADE2D1E3A371900EB34FC /* ItemDetailsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemDetailsVC.swift; sourceTree = "<group>"; };
 		E02ADE2F1E3A3A4800EB34FC /* CustomTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
-		E05578DA1E3BA1350029F7EE /* MyDateFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyDateFormatter.swift; sourceTree = "<group>"; };
+		E05578DA1E3BA1350029F7EE /* SuccinctDateFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SuccinctDateFormatter.swift; sourceTree = "<group>"; };
 		E08A30891E38141800A71E3C /* DreamLister.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DreamLister.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E08A308C1E38141800A71E3C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E08A308E1E38141800A71E3C /* MainVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainVC.swift; sourceTree = "<group>"; };
@@ -52,6 +53,7 @@
 		E08A30C91E381D8E00A71E3C /* ItemType+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ItemType+CoreDataClass.swift"; sourceTree = "<group>"; };
 		E08A30CA1E381D8E00A71E3C /* ItemType+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ItemType+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		E08A30D51E38308900A71E3C /* MaterialView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaterialView.swift; sourceTree = "<group>"; };
+		E0DEBD471E4BBC2900B2E11A /* ViewControllerExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewControllerExtension.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,8 +102,8 @@
 		E08A30B11E381BD900A71E3C /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				E05578DA1E3BA1350029F7EE /* MyDateFormatter.swift */,
-				E02ADE2B1E3A35E400EB34FC /* MyNumberFormatter.swift */,
+				E05578DA1E3BA1350029F7EE /* SuccinctDateFormatter.swift */,
+				E02ADE2B1E3A35E400EB34FC /* SuccinctNumberFormatter.swift */,
 				E08A30C31E381D8E00A71E3C /* Image+CoreDataClass.swift */,
 				E08A30C51E381D8E00A71E3C /* Item+CoreDataClass.swift */,
 				E08A30C71E381D8E00A71E3C /* Store+CoreDataClass.swift */,
@@ -128,6 +130,7 @@
 				E02ADE2F1E3A3A4800EB34FC /* CustomTextField.swift */,
 				E02ADE261E396CDC00EB34FC /* ItemCell.swift */,
 				E08A30D51E38308900A71E3C /* MaterialView.swift */,
+				E0DEBD471E4BBC2900B2E11A /* ViewControllerExtension.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -216,15 +219,16 @@
 			files = (
 				E02ADE271E396CDC00EB34FC /* ItemCell.swift in Sources */,
 				E08A30CE1E381D8E00A71E3C /* Item+CoreDataProperties.swift in Sources */,
+				E0DEBD481E4BBC2900B2E11A /* ViewControllerExtension.swift in Sources */,
 				E08A30CD1E381D8E00A71E3C /* Item+CoreDataClass.swift in Sources */,
 				E08A30D11E381D8E00A71E3C /* ItemType+CoreDataClass.swift in Sources */,
 				E02ADE301E3A3A4800EB34FC /* CustomTextField.swift in Sources */,
 				E08A30D61E38308900A71E3C /* MaterialView.swift in Sources */,
 				E08A308F1E38141800A71E3C /* MainVC.swift in Sources */,
 				E08A30CC1E381D8E00A71E3C /* Image+CoreDataProperties.swift in Sources */,
-				E02ADE2C1E3A35E400EB34FC /* MyNumberFormatter.swift in Sources */,
+				E02ADE2C1E3A35E400EB34FC /* SuccinctNumberFormatter.swift in Sources */,
 				E08A30D01E381D8E00A71E3C /* Store+CoreDataProperties.swift in Sources */,
-				E05578DB1E3BA1350029F7EE /* MyDateFormatter.swift in Sources */,
+				E05578DB1E3BA1350029F7EE /* SuccinctDateFormatter.swift in Sources */,
 				E02ADE2E1E3A371900EB34FC /* ItemDetailsVC.swift in Sources */,
 				E08A308D1E38141800A71E3C /* AppDelegate.swift in Sources */,
 				E08A30D21E381D8E00A71E3C /* ItemType+CoreDataProperties.swift in Sources */,

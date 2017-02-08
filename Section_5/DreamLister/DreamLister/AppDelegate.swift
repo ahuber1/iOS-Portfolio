@@ -91,12 +91,35 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 }
 
+/** This app's `AppDelegate` */
 let ad = UIApplication.shared.delegate as! AppDelegate
+
+/** This app's `NSManagedObjectContext` */
 let context = ad.persistentContainer.viewContext
 
-
+/** The font family used by this app. */
 fileprivate let fontFamily = "AvenirNext"
 
+/**
+    Using the font family specified in `AppDelegate.swift`, this function returns a `UIFont` object
+    of a certain type (e.g., `"Regular"`, `"Italic"`), or has a fatal error if the `UIFont` could not
+    be found.
+ 
+    - parameters:
+        - type: the type of font to return (e.g., `"Regular"`, `"Italic"`)
+        - fontSize: the size of the font
+ 
+    - returns: the `UIFont` object specified, or has a fatal error if the `UIFont` could not be found.
+ 
+    - note: The reason why there is a fatal error is for debugging purposes.
+ */
 func getAppFont(ofType type: String, withFontSize fontSize: CGFloat) -> UIFont {
-    return UIFont(name: "\(fontFamily)-\(type)", size: fontSize)!
+    let fontName = "\(fontFamily)-\(type)"
+    
+    if let font = UIFont(name: fontName, size: fontSize) {
+        return font
+    }
+    else {
+        fatalError("Could not retrieve font \"\(fontName)\"")
+    }
 }
