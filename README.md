@@ -1,22 +1,26 @@
-**Last Date Modified:** January 27, 2016
-
-Completed 65 of 265 items, currently on Section 5 of 20.
+Completed 65 of 265 items, currently on Section 6 of 20.
 
 # iOS-Portfolio
-On January 1, 2016, I began an [iOS 10 and Swift 3 course](https://www.udemy.com/devslopes-ios10/). This is a collection of all code I completed as a part of this course. This course has 20s sections and one optional section. At the top of this README is the last date the repository was modified, and the current section I am working on is written as well. Below is a table describing:
+On January 1, 2017, I began an [iOS 10 and Swift 3 course](https://www.udemy.com/devslopes-ios10/). This is a collection of all code I completed as a part of this course. This course has 20 sections and one optional section, and my current progress in the course is written at the top of this README and in the table below, with the number of items completed at the top, and a section-by-section breakdown in the table.
 
-1. All the sections.
-2. Whether or not the section is incomplete, in-progress, or complete (i.e., I have yet to follow, am following, or followed along with all the videos in that section, and have yet to write, am writing, or wrote a fully-functioning app).
-3. Whether or not the code has been documented (has comments, a README, etc.).
+In the table, all the sections are listed in the first two columns, and that section's status is listed in the third column. The status can either be:
+
+1. `Incomplete`, meaning no progress has been made whatsoever in this section yet,
+2. `In-Progress`, meaning I am currently working on this section of the course, or
+3. `Complete`, meaning I have completed this section of this course.
+
+_However_, having a status of `Complete` does not mean that the code for that section is commented. Instead, it means that I have a fully-functioning version of the app(s) that was taught in that section of the course. If the rightmost column states `Yes`, then that means the code for the app(s) in that section has been commented, which includes a README. If it is `No`, then the code has not been documented.
+
+Each section has a corresponding directory, and each contains the source code for the app(s) covered in that section.
 
 | Section | Description                                              | Status      | Documented? |
 | ------: | -------------------------------------------------------- | ----------- | ----------- |
 | 1       | Getting Started with iOS 10 & Swift                      | Complete    | Yes         |
-| 2       | Learn to Code with Swift 3                               | Complete    | No          |
-| 3       | Version Control with Git & GitHub                        | Complete    | No          |
-| 4       | Foundational iOS                                         | Complete    | No          |
-| 5       | Data Persistence & Core Data                             | In-Progress | No          |
-| 6       | Working with REST & Web Requests on iOS 10 & Swift 3     | Incomplete  | No          |
+| 2       | Learn to Code with Swift 3                               | Complete    | Yes         |
+| 3       | Version Control with Git & GitHub                        | Complete    | Yes         |
+| 4       | Foundational iOS                                         | Complete    | Yes         |
+| 5       | Data Persistence & Core Data                             | Complete    | Yes         |
+| 6       | Working with REST & Web Requests on iOS 10 & Swift 3     | In-Progress | No          |
 | 7       | Protocol Oriented Programming and Advanced Swift 3       | Incomplete  | No          |
 | 8       | iOS 10 Hot New Features                                  | Incomplete  | No          |
 | 9       | Building Full Stack Apps with Firebase                   | Incomplete  | No          |
@@ -32,5 +36,3 @@ On January 1, 2016, I began an [iOS 10 and Swift 3 course](https://www.udemy.com
 | 19      | Objective-C Building a Tutorial and YouTube App          | Incomplete  | No          |
 | 20      | Design, Provisioning, Testing, and iOS 10 App Submission | Incomplete  | No          |
 | 21      | Bonus: Devslopes Online Bootcamp Classroom Sessions      | Incomplete  | No          |
-
-Each section has a corresponding directory, each of which containing the source code of the projects that I created while developing the applications that were taught in the videos for that section. Each project has or will have a README. When that section's `Commented?` column states `Yes` in the table below, that means that, not only is that sections' code commented, but it also means that all the aforementioned READMEs can be found in that section's directory.
