@@ -1,7 +1,7 @@
 Completed 65 of 265 items, currently on Section 6 of 20.
 
 # iOS-Portfolio
-On January 1, 2017, I began an [iOS 10 and Swift 3 course](https://www.udemy.com/devslopes-ios10/). This is a collection of all code I completed as a part of this course. This course has 20 sections and one optional section, and my current progress in the course is written at the top of this README and in the table below, with the number of items completed at the top, and a section-by-section breakdown in the table.
+On January 1, 2017, I began an [iOS 10 and Swift 3 course](https://www.udemy.com/devslopes-ios10/). This is a collection of all code I completed as a part of this course. This course has 20 sections and one optional section, and my current progress in the course is written at the top of this README and in the table below, with the number of items completed and the section of the course I am currently on at the top, and a section-by-section breakdown in the table.
 
 In the table, all the sections are listed in the first two columns, and that section's status is listed in the third column. The status can either be:
 
