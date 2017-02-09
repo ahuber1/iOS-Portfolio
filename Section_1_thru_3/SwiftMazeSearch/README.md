@@ -1,2 +1,2 @@
 # SwiftMazeSearch
-Doing a maze search implementation in Swift
+This is a Swift implementation of the "Maze Solver" project assigned to students taking CMSC 201 in the Fall 2016 semester at my university, UMBC (University of Maryland Baltimore County). Rather than implementing this maze solver in Python, I decided to practice Swift by implementing it in Swift _with custom data structures_. A PDF describing this project can also be found in this directory.
