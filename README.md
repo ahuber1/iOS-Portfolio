@@ -16,7 +16,7 @@ Each section has a corresponding directory, and each contains the source code fo
 | Section | Description                                              | Status      | Documented? |
 | ------: | -------------------------------------------------------- | ----------- | ----------- |
 | 1       | Getting Started with iOS 10 & Swift                      | Complete    | Yes         |
-| 2       | Learn to Code with Swift 3                               | Complete    | Yes         |
+| 2       | Learn to Code with Swift 3                               | Complete    | No          |
 | 3       | Version Control with Git & GitHub                        | Complete    | Yes         |
 | 4       | Foundational iOS                                         | Complete    | Yes         |
 | 5       | Data Persistence & Core Data                             | Complete    | Yes         |
