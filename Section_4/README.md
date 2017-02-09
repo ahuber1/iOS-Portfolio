@@ -5,12 +5,12 @@ This directory contains code that was written during Section 4 "Foundational iOS
 
 ## Table of Contents
 
-1. [`HelloWorld`](## `HelloWorld)
-2. [`MiraclePill`](## `MiraclePill`)
-3. [`PageTheScroll`](## `PageTheScroll`)
-4. [`RetroCalculator`](## `RetroCalculator`)
-5. [`PartyRock`](## `PartyRock`)
-6. [`AutoLayout`](## `AutoLayout`)
+1. [`HelloWorld`](https://github.com/ahuber1/iOS-Portfolio/tree/master/Section_4#helloworld)
+2. [`MiraclePill`](https://github.com/ahuber1/iOS-Portfolio/tree/master/Section_4#miraclepill)
+3. [`PageTheScroll`](https://github.com/ahuber1/iOS-Portfolio/tree/master/Section_4#pagethescroll)
+4. [`RetroCalculator`](https://github.com/ahuber1/iOS-Portfolio/tree/master/Section_4#retrocalculator)
+5. [`PartyRock`](https://github.com/ahuber1/iOS-Portfolio/tree/master/Section_4#partyrock)
+6. [`AutoLayout`](https://github.com/ahuber1/iOS-Portfolio/tree/master/Section_4#autolayout)
 
 ## `HelloWorld`
 
