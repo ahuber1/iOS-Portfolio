@@ -5,12 +5,12 @@ This directory contains code that was written during Section 4 "Foundational iOS
 
 ## Table of Contents
 
-1. [`HelloWorld`](`## HelloWorld`)
-2. [`MiraclePill`](`## MiraclePill`)
-3. [`PageTheScroll`](`## PageTheScroll`)
-4. [`RetroCalculator`](`## RetroCalculator`)
-5. [`PartyRock`](`## PartyRock`)
-6. [`AutoLayout`](`## AutoLayout`)
+1. [`HelloWorld`](## `HelloWorld)
+2. [`MiraclePill`](## `MiraclePill`)
+3. [`PageTheScroll`](## `PageTheScroll`)
+4. [`RetroCalculator`](## `RetroCalculator`)
+5. [`PartyRock`](## `PartyRock`)
+6. [`AutoLayout`](## `AutoLayout`)
 
 ## `HelloWorld`
 
