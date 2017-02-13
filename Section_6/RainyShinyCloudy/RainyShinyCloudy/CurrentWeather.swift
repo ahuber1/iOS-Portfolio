@@ -8,6 +8,7 @@
 
 import UIKit
 import Alamofire
+import CoreLocation
 
 class CurrentWeather: CustomStringConvertible {
     
@@ -26,12 +27,21 @@ class CurrentWeather: CustomStringConvertible {
         return _weatherType
     }
     
-    var currentTemp: Double {
+    var currentTemp: String {
         if _currentTemp == nil {
             _currentTemp = 0.0
         }
         
-        return _currentTemp
+        let temperatureUnit: TemperatureUnit
+        
+        if let delegate = temperatureUnitDelegate {
+            temperatureUnit = delegate.temperatureUnitSelected
+        }
+        else {
+            temperatureUnit = .kelvin
+        }
+        
+        return formatAndConvertTemperatureInKelvin(_currentTemp, to: temperatureUnit)
     }
     
     var date: String {
@@ -39,7 +49,7 @@ class CurrentWeather: CustomStringConvertible {
             _date = ""
         }
         
-        let dateFormatter = SuccinctDateFormatter(dateStyle: .long, timeStyle: .long)
+        let dateFormatter = SuccinctDateFormatter(dateStyle: .long, timeStyle: .none)
         let currentDate = dateFormatter.string(from: Date())
         self._date = "Today, \(currentDate)"
         
@@ -54,15 +64,16 @@ class CurrentWeather: CustomStringConvertible {
         return "\(line1)\n\(line2)\n\(line3)\n\(line4)"
     }
     
+    var temperatureUnitDelegate: TemperatureUnitDelegate?
+    
     private var _cityName: String!
     private var _date: String!
     private var _weatherType: String!
     private var _currentTemp: Double!
     
-    typealias DownloadComplete = () -> ()
-    func downloadWeatherDetails(completed: DownloadComplete) {
+    func downloadWeatherDetails(atLocation location: CLLocation, _ completed: @escaping DownloadComplete) {
         // Alamofire download
-        let currentWeatherURLString = Constants.getCurrentWeatherURL(withLatitude: 35, andWithLongitude: 139)
+        let currentWeatherURLString = getCurrentWeatherURL(atLocation: location)
         let currentWeatherURL = URL(string: currentWeatherURLString)!
         Alamofire.request(currentWeatherURL).responseJSON { response in
             let result = response.result
@@ -71,6 +82,9 @@ class CurrentWeather: CustomStringConvertible {
                 if let name = dict["name"] as? String {
                     self._cityName = name.capitalized
                 }
+                else {
+                    print("Unable to set _cityName")
+                }
                 
                 if let weather = dict["weather"] as? [Dictionary<String, AnyObject>] {
                     let firstDict = weather[0]
@@ -78,20 +92,31 @@ class CurrentWeather: CustomStringConvertible {
                     if let main = firstDict["main"] as? String {
                         self._weatherType = main.capitalized
                     }
+                    else {
+                        print("Unable to set _weatherType")
+                    }
+                }
+                else {
+                    print("Unable to get \"weather\" array")
                 }
                 
                 if let main = dict["main"] as? Dictionary<String, AnyObject> {
                     if let currentTemperature = main["temp"] as? Double {
-                        let kelvinToFahrenheitNumerator = (currentTemperature * (9 / 5) - 459.67)
-                        let kelvinToFahrenheitDenominator = 10.0
-                        let kelvinToFahrenheit = Double(round(10 * kelvinToFahrenheitNumerator / kelvinToFahrenheitDenominator))
-                        self._currentTemp = kelvinToFahrenheit
+                        self._currentTemp = currentTemperature
+                    }
+                    else {
+                        print("Unable to set _currentTemp")
                     }
                 }
+                else {
+                    print("Unable to get \"main\" dictionary")
+                }
+            }
+            else {
+                print("Unable to read outermost dictionary")
             }
             
-            print(self)
+            completed()
         }
-        completed()
     }
 }
