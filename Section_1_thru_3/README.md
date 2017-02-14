@@ -1,3 +1,5 @@
+日本語版は[こちら](https://github.com/ahuber1/iOS-Portfolio/blob/master/japanese/Section_1_thru_3/README.md)です。
+
 # Section 1 through 3
 
 This directory contains the code that was written during Sections 1 through 3 of the [iOS 10 and Swift 3 course](https://www.udemy.com/devslopes-ios10/) I am currently taking. There is no code for Sections 1 and 3 as is explained below, but there is code for Section 2.
