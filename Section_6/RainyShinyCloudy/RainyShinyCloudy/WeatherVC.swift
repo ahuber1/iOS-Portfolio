@@ -42,6 +42,10 @@ class WeatherVC: UIViewController, UITableViewDelegate, UITableViewDataSource, C
         
         tableView.delegate = self
         tableView.dataSource = self
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyThreeKilometers
@@ -131,7 +135,32 @@ class WeatherVC: UIViewController, UITableViewDelegate, UITableViewDataSource, C
     }
     
     func updateLocation() {
+        if CLLocationManager.authorizationStatus() != .authorizedWhenInUse {
+            requestUserAgainForAccessToCurrentLocation()
+        }
+        
         self.locationManager.startUpdatingLocation()
+    }
+    
+    func requestUserAgainForAccessToCurrentLocation() {
+        print("No access to GPS")
+        
+        let alert = UIAlertController(title: "Location cannot be found", message: "This app needs to have access to your location in order to display the weather at your current location. Would you like to change your settings?", preferredStyle: .alert)
+        let yesAction = UIAlertAction(title: "Yes", style: .default, handler: { action in
+            UIApplication.shared.open(URL(string: UIApplicationOpenSettingsURLString)!, options: [String:Any](), completionHandler: nil)
+        })
+        let noAction = UIAlertAction(title: "No", style: .cancel, handler: { action in
+            let alert2 = UIAlertController(title: "Access was Not Granted", message: "Access was not granted. Unable to determine your current location.", preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+            
+            alert2.addAction(okAction)
+            self.present(alert2, animated: true, completion: nil)
+        })
+        
+        alert.addAction(yesAction)
+        alert.addAction(noAction)
+        
+        self.present(alert, animated: true, completion: nil)
     }
     
     func updateMainUI() {
