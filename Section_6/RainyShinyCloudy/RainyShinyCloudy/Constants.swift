@@ -9,15 +9,34 @@
 import Foundation
 import CoreLocation
 
+/** Used to represent the closure that is executed whenever a download is completed. */
 typealias DownloadComplete = () -> ()
 
+/** Used whenever a UILabel is not set */
 let NOT_SET = "— —"
 
+/**
+ Gets the URL from the Open Weather API _for the current weather_ given a `CLLocation` object
+ 
+ - parameters:
+ - location: the `CLLocation` object
+ 
+ - returns: the URL from the Open Weather API _for the current weather_ at the location on the Earth 
+ represented by a `CLLocation` object
+ */
 func getCurrentWeatherURL(atLocation location: CLLocation) -> String {
     let (lat, lon) = getLatitudeAndLongitude(fromCLLocation: location)
     return getCurrentWeatherURL(withLatitude: lat, andWithLongitude: lon)
 }
 
+/**
+ Gets the 16-day for URL from the Open Weather API
+ 
+ - parameters:
+ - <#first parameter#>: <#description of first parameter#>
+ 
+ - returns: <#description of return value#>
+ */
 func getForecastWeatherURL(atLocation location: CLLocation) -> String {
     let (lat, lon) = getLatitudeAndLongitude(fromCLLocation: location)
     return getForecastWeatherURL(withLatitude: lat, andWithLongitude: lon)
