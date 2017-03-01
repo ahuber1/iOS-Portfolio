@@ -22,7 +22,7 @@ Each section has a corresponding directory, and each contains the source code fo
 | 3       | Version Control with Git & GitHub                        | Complete    | Yes         |
 | 4       | Foundational iOS                                         | Complete    | Yes         |
 | 5       | Data Persistence & Core Data                             | Complete    | Yes         |
-| 6       | Working with REST & Web Requests on iOS 10 & Swift 3     | In-Progress | No          |
+| 6       | Working with REST & Web Requests on iOS 10 & Swift 3     | In-Progress | Yes         |
 | 7       | Protocol Oriented Programming and Advanced Swift 3       | Incomplete  | No          |
 | 8       | iOS 10 Hot New Features                                  | Incomplete  | No          |
 | 9       | Building Full Stack Apps with Firebase                   | Incomplete  | No          |

@@ -1,0 +1,15 @@
+PODS:
+  - Alamofire (4.3.0)
+  - MarqueeLabel/Swift (3.0.1)
+
+DEPENDENCIES:
+  - Alamofire (~> 4.0)
+  - MarqueeLabel/Swift
+
+SPEC CHECKSUMS:
+  Alamofire: 856a113053a7bc9cbe5d6367a555d773fc5cfef7
+  MarqueeLabel: 80ba85d2b76a9f5fa6c13de337db80bcd94feb1d
+
+PODFILE CHECKSUM: 25b22c0401528af72d7585a57ded03bd3a41351d
+
+COCOAPODS: 1.2.0
