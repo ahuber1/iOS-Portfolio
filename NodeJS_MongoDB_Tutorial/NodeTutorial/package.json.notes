@@ -1,0 +1,16 @@
+{
+    "name" : "mongo-server",    // name of the project
+    "version": "0.0.1",         // current version of the project
+    "private": true,            // prevents the project from being published accidentally if you set it to true
+
+    /*
+        Dependencies is a list containing the Node.js modules used by your application.
+
+        Dependencies take the form of key/value pairs of module names and versions. Your list of dependencies
+        contains version 3.3.4 of Express; if you want to instruct Node.js to use the latest version of a package,e,
+        you can use the wildcard "*"
+    */
+    "dependencies" : {
+        "express" : "3.3.4"
+    }
+}
